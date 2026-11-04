@@ -1,0 +1,316 @@
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+
+@layer base {
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    width: 100%;
+  }
+
+  body {
+    overscroll-behavior: none;
+  }
+
+  #root {
+    min-height: 100%;
+    width: 100%;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  .material-symbols-outlined {
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Reset Leaflet custom divIcon default white background & border */
+  .custom-incident-pin {
+    background: transparent !important;
+    border: none !important;
+  }
+}
+
+@theme {
+  /* ========================================================
+     1. BẢNG MÀU THƯƠNG HIỆU & HÀNH CHÍNH (GOVTECH CORE)
+     ======================================================== */
+  --color-navy-950: #0a1b2b;
+  --color-navy-900: #102a43;
+  /* Primary Navy: Nền Sidebar, Header, nút chính */
+  --color-navy-800: #173759;
+  --color-navy-700: #244b73;
+
+  --color-cyan-brand: #0084a3;
+  /* Brand Accent Cyan: Nút action phụ, highlight, tag active */
+  --color-cyan-hover: #006b85;
+  --color-cyan-light: #e6f6f9;
+
+  /* Nền giao diện phẳng (Flat Surfaces) */
+  --color-surface-bg: #f8fafc;
+  /* Nền toàn màn hình */
+  --color-surface-card: #ffffff;
+  /* Nền Card, Panel, Bảng dữ liệu */
+  --color-surface-muted: #f1f5f9;
+  /* Nền Header bảng, ô input disable */
+
+  /* Đường viền phẳng 1px (Flat Borders) */
+  --color-border-subtle: #e2e8f0;
+  /* Viền thẻ, bảng, đường chia cột */
+  --color-border-strong: #cbd5e1;
+  /* Viền input khi focus hoặc hover */
+
+  /* Màu chữ (Typography Text Colors) */
+  --color-text-main: #1e293b;
+  /* Slate Dark: Tiêu đề, chữ nội dung chính */
+  --color-text-muted: #64748b;
+  /* Slate Muted: Nhãn phụ, mốc giờ, metadata */
+  --color-text-dim: #94a3b8;
+  /* Placeholder, breadcrumb separator */
+
+  /* ========================================================
+     2. MÀU NGHIỆP VỤ TRẠNG THÁI SỰ CỐ (report_status)
+     ======================================================== */
+  /* submitted: Mới gửi */
+  --color-status-submitted-text: #475569;
+  --color-status-submitted-bg: #f1f5f9;
+  --color-status-submitted-border: #cbd5e1;
+
+  /* received: Đã tiếp nhận */
+  --color-status-received-text: #0284c7;
+  --color-status-received-bg: #f0f9ff;
+  --color-status-received-border: #bae6fd;
+
+  /* in_progress: Đang xử lý tại hiện trường */
+  --color-status-progress-text: #d97706;
+  --color-status-progress-bg: #fffbeb;
+  --color-status-progress-border: #fde68a;
+
+  /* resolved: Đã xử lý xong (nghiệm thu) */
+  --color-status-resolved-text: #16a34a;
+  --color-status-resolved-bg: #f0fdf4;
+  --color-status-resolved-border: #bbf7d0;
+
+  /* rejected: Bị từ chối */
+  --color-status-rejected-text: #dc2626;
+  --color-status-rejected-bg: #fef2f2;
+  --color-status-rejected-border: #fecaca;
+
+  /* closed: Đã đóng hoàn tất */
+  --color-status-closed-text: #334155;
+  --color-status-closed-bg: #e2e8f0;
+  --color-status-closed-border: #94a3b8;
+
+  /* ========================================================
+     3. MÀU MỨC ĐỘ ƯU TIÊN SỰ CỐ (report_priority)
+     ======================================================== */
+  --color-priority-low: #16a34a;
+  /* Thấp (Xanh lá) */
+  --color-priority-normal: #0284c7;
+  /* Bình thường (Xanh dương) */
+  --color-priority-high: #d97706;
+  /* Cao (Cam hổ phách) */
+  --color-priority-urgent: #dc2626;
+  /* Khẩn cấp (Đỏ còi báo động) */
+
+  /* ========================================================
+     4. MÀU CHO ĐỐI SOÁT KIỂM TOÁN (Data Diff) & GIS
+     ======================================================== */
+  /* Cột đỏ: Dữ liệu trước thay đổi (before_state) */
+  --color-diff-before-bg: #fff5f5;
+  --color-diff-before-border: #fecaca;
+  --color-diff-before-text: #991b1b;
+
+  /* Cột xanh: Dữ liệu sau can thiệp (after_state) */
+  --color-diff-after-bg: #f0fdf4;
+  --color-diff-after-border: #bbf7d0;
+  --color-diff-after-text: #166534;
+
+  /* Lớp bản đồ không gian GIS */
+  --color-gis-current: #0084a3;
+  /* Đa giác ranh giới hiện hành (is_current = true) */
+  --color-gis-legacy: #94a3b8;
+  /* Đa giác ranh giới lưu trữ cũ */
+  --color-gis-centroid: #dc2626;
+  /* Điểm tâm vùng địa giới */
+
+  /* ========================================================
+     5. PHÔNG CHỮ & ĐỘ RỘNG KHUNG CHUẨN
+     ======================================================== */
+  --font-sans: "Be Vietnam Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", Consolas, monospace;
+  /* Dùng cho Ticket Code, UUID, JSON */
+
+  --spacing-sidebar: 260px;
+  /* Độ rộng cố định của Sidebar */
+  --spacing-topbar: 64px;
+  /* Chiều cao chuẩn của Topbar */
+
+  /* ========================================================
+     THANG KÍCH THƯỚC CHỮ (TYPOGRAPHY SCALE CHO GOVTECH)
+     ======================================================== */
+
+  /* Micro Text (10px): Dùng cho nhãn phụ cực nhỏ, watermark GIS, tọa độ centroid nhỏ */
+  --text-2xs: 0.625rem;
+  --text-2xs--line-height: 0.875rem;
+
+  /* Badge & Monospace Code (12px): Dùng cho tag trạng thái (in_progress, urgent), mã ticket SC-2026-xxx, mã UUID, header bảng dữ liệu */
+  --text-xs: 0.75rem;
+  --text-xs--line-height: 1rem;
+
+  /* Standard Body Compact (13px): Dùng cho dữ liệu trong ô bảng (Data Table Cells), địa chỉ sự cố, nhật ký log kiểm toán */
+  --text-sm: 0.8125rem;
+  --text-sm--line-height: 1.25rem;
+
+  /* Base Reading (14px): Dùng cho nội dung văn bản thường, label của Form nhập liệu, menu điều hướng Sidebar */
+  --text-base: 0.875rem;
+  --text-base--line-height: 1.375rem;
+
+  /* Section Title & Sub-header (16px): Dùng cho tiêu đề card, tiêu đề bảng điều khiển, tên đơn vị Tenant */
+  --text-md: 1rem;
+  --text-md--line-height: 1.5rem;
+
+  /* Modal Title & Card Header (18px): Tiêu đề hộp thoại Popup (VD: Cập nhật ranh giới GIS), tiêu đề nhóm tác vụ */
+  --text-lg: 1.125rem;
+  --text-lg--line-height: 1.75rem;
+
+  /* Page Title (20px - 24px): Dùng cho thanh điều hướng cấp trang chính (Breadcrumb / Tiêu đề trang) */
+  --text-xl: 1.25rem;
+  --text-xl--line-height: 1.75rem;
+
+  --text-2xl: 1.5rem;
+  --text-2xl--line-height: 2rem;
+
+  /* KPI Numbers (32px - 40px): Dùng riêng cho các con số thống kê lớn trên 4 thẻ KPI Dashboard (1,420 vụ, 2.1% SLA) */
+  --text-kpi: 2rem;
+  --text-kpi--line-height: 2.25rem;
+
+  --text-kpi-lg: 2.5rem;
+  --text-kpi-lg--line-height: 2.75rem;
+
+  /* ========================================================
+     6. MATERIAL 3 & PORTAL DESIGN TOKENS (TỪ TASKCODE)
+     ======================================================== */
+  --color-surface: #f9f9ff;
+  --color-surface-bright: #f9f9ff;
+  --color-surface-dim: #cfdaf2;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f0f3ff;
+  --color-surface-container: #e7eeff;
+  --color-surface-container-high: #dee8ff;
+  --color-surface-container-highest: #d8e3fb;
+  --color-surface-variant: #d8e3fb;
+  --color-surface-tint: #49607c;
+  --color-on-surface: #111c2d;
+  --color-on-surface-variant: #43474d;
+  --color-inverse-surface: #263143;
+  --color-inverse-on-surface: #ecf1ff;
+
+  --color-primary: #00152a;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #102a43;
+  --color-on-primary-container: #7a92b0;
+  --color-primary-fixed: #d1e4ff;
+  --color-primary-fixed-dim: #b0c9e8;
+  --color-on-primary-fixed: #011d35;
+  --color-on-primary-fixed-variant: #314863;
+  --color-inverse-primary: #b0c9e8;
+
+  --color-secondary: #006780;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #7ddbfd;
+  --color-on-secondary-container: #006077;
+  --color-secondary-fixed: #b8eaff;
+  --color-secondary-fixed-dim: #74d3f4;
+  --color-on-secondary-fixed: #001f28;
+  --color-on-secondary-fixed-variant: #004d61;
+
+  --color-tertiary: #001905;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #003010;
+  --color-on-tertiary-container: #1aa54c;
+  --color-tertiary-fixed: #7ffc97;
+  --color-tertiary-fixed-dim: #62df7d;
+  --color-on-tertiary-fixed: #002109;
+  --color-on-tertiary-fixed-variant: #005320;
+
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #93000a;
+
+  --color-outline: #74777e;
+  --color-outline-variant: #c3c6ce;
+
+  --spacing-space-xs: 0.25rem;
+  --spacing-space-sm: 0.5rem;
+  --spacing-space-md: 1rem;
+  --spacing-space-lg: 1.5rem;
+  --spacing-space-xl: 2rem;
+  --spacing-gutter: 1rem;
+  --spacing-gutter-desktop: 1.5rem;
+  --spacing-margin: 1rem;
+  --spacing-margin-desktop: 1.5rem;
+  --spacing-margin-tablet: 1.5rem;
+
+  --font-body-sm: "Be Vietnam Pro", sans-serif;
+  --font-body-md: "Be Vietnam Pro", sans-serif;
+  --font-body-lg: "Be Vietnam Pro", sans-serif;
+  --font-headline-sm: "Be Vietnam Pro", sans-serif;
+  --font-headline-md: "Be Vietnam Pro", sans-serif;
+  --font-headline-lg: "Be Vietnam Pro", sans-serif;
+  --font-headline-xl: "Be Vietnam Pro", sans-serif;
+  --font-label-sm: "Inter", sans-serif;
+  --font-label-md: "Inter", sans-serif;
+  --font-label-lg: "Inter", sans-serif;
+  --font-code-tabular: "Inter", monospace;
+
+  --text-body-sm: 12px;
+  --text-body-sm--line-height: 18px;
+  --text-body-md: 14px;
+  --text-body-md--line-height: 20px;
+  --text-body-lg: 16px;
+  --text-body-lg--line-height: 24px;
+
+  --text-headline-sm: 18px;
+  --text-headline-sm--line-height: 24px;
+  --text-headline-sm--letter-spacing: -0.005em;
+  --text-headline-md: 22px;
+  --text-headline-md--line-height: 28px;
+  --text-headline-md--letter-spacing: -0.01em;
+  --text-headline-lg: 30px;
+  --text-headline-lg--line-height: 38px;
+  --text-headline-lg--letter-spacing: -0.015em;
+  --text-headline-xl: 36px;
+  --text-headline-xl--line-height: 44px;
+  --text-headline-xl--letter-spacing: -0.02em;
+
+  --text-label-sm: 11px;
+  --text-label-sm--line-height: 14px;
+  --text-label-sm--letter-spacing: 0.04em;
+  --text-label-md: 12px;
+  --text-label-md--line-height: 16px;
+  --text-label-md--letter-spacing: 0.02em;
+  --text-label-lg: 14px;
+  --text-label-lg--line-height: 20px;
+  --text-label-lg--letter-spacing: 0.01em;
+
+  --text-code-tabular: 13px;
+  --text-code-tabular--line-height: 18px;
+  --text-code-tabular--letter-spacing: 0.02em;
+}
